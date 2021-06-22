@@ -1,27 +1,36 @@
 // configure environment variables from .env file
 require('dotenv').config();
+const express = require("express");
 
 const app = express();
+const middlewares = require("./app/middlewares");
+const routes = require("./app/routes");
 
-var corsOptions = {
-  origin: process.env.WEB_URL || "http://localhost:3001"
-};
+const db = require("./app/db/models");
 
-app.use(cors(corsOptions));
+//configure middlewares
+app.use(middlewares);
 
-// parse requests of content-type - application/json
-app.use(express.json());
-
-// parse requests of content-type - application/x-www-form-urlencoded
-app.use(express.urlencoded({ extended: true }));
-
-// simple route
-app.get("/", (req, res) => {
-  res.json({ message: "Welcome to bezkoder application." });
-});
+// configure api routes
+app.use("/api/v1", routes);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}.`);
-});
+
+(async () => {
+  
+  try {
+
+    // wait for DB connection to be authenticated and established
+    await db.sequelize.authenticate();
+
+    // Start api server
+    app.listen(PORT, () => {
+      console.log(`Server is running on port ${PORT}.`);
+    });
+
+  } catch (error) {
+    console.error(error);    
+  }
+  
+})();

@@ -5,3 +5,8 @@ npx sequelize-cli model:generate --name Card --attributes name:string,number:str
 
 Run DB migration
 npx sequelize-cli db:migrate
+
+
+@TODO
+
+DB pool configuration by environment variable
