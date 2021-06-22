@@ -3,6 +3,7 @@ const Card = require("../db/models").Card;
 const yup = require("yup");
 
 const luhnValidate = require("../helpers/luhn.validation");
+const crypto = require("../helpers/crypto");
 
 const CreateCardSchema = yup.object({
     name: yup.string().required().matches(/^\w{1,}$/, "Card name should be a single word"),
@@ -26,8 +27,8 @@ const addCard = async (req, res) => {
         await CreateCardSchema.validate(req.body);
         const card = await Card.create({
             name: req.body.name,
-            number: req.body.number,
-            cvv: req.body.cvv,
+            number: crypto.aesEncrypt(req.body.number),
+            cvv: await crypto.bcryptHash(req.body.cvv),
             expiry: req.body.expiry
         });
         res.send({
