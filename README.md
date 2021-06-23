@@ -30,3 +30,9 @@ CVV is stored as a bcrypt hash. The user will be required to enter the cvv with 
 
 ## Validating card number
 The [node-luhn](https://www.npmjs.com/package/luhn) package was used to validate card numbers with [Luhn Algorithm](https://en.wikipedia.org/wiki/Luhn_algorithm)
+
+## Improvements @TODO
+ 1. Move secrets like db config and aes encryption key to a secure service like Hashicorp Vault and read programatically from it.
+ 2. Ensure there are no pending migrations before the server starts
+ 3. Add action specific error codes.
+ 4. Improve error response, add global error handler for routes.
