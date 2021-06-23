@@ -23,7 +23,7 @@ More models can be created using the same approach
 ## Encryption
 
 ### Card number
-Card number is encrypted with `aes-256-cbc` algorithm. We will need to retrieve card number later inorder to process transactions, so card number needs to be saved with a secure encryption algorithm
+Card number is encrypted with `aes-256-cbc` algorithm. We will need to retrieve card number later inorder to process transactions, so card number needs to be saved with a secure two-way encryption algorithm
 
 ### CVV
 CVV is stored as a bcrypt hash. The user will be required to enter the cvv with each transaction to authenticate it. The entered cvv can be compared with the stored bcrypt hash to validate it. Hence, we do not require the cvv to be decryptable.
