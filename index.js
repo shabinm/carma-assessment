@@ -11,10 +11,10 @@ const db = require("./app/db/models");
 //configure middlewares
 app.use(middlewares);
 
-// configure api routes
+// configure rest api routes
 app.use("/api/v1", routes);
 
-// set port, listen for requests
+// set sever port
 const PORT = process.env.PORT || 3000;
 
 (async () => {

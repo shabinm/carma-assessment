@@ -1,4 +1,6 @@
+// configure environment variables from .env file. This is required for the sequelize-cli
 require('dotenv').config();
+
 const path = require('path');
 
 module.exports = {
